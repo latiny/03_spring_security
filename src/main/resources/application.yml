@@ -1,0 +1,24 @@
+server:
+  port: 9000
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  security:
+    user:
+      name: admin
+      password: abc123456
+  datasource:
+      url: jdbc:mysql://localhost:3306/mysecurity?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      username: root
+      password: gybk#123456
+      driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: cn.latiny.domain
+logging:
+  level:
+    cn:
+      latiny:
+        mapper: debug

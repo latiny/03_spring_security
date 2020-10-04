@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.latiny.mapper.SysRoleDomainMapper">
+  <resultMap id="BaseResultMap" type="cn.latiny.domain.SysRoleDomain">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+  </resultMap>
+
+  <select id="findRolesByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select r.*
+    from sys_user u
+    inner join user_role ur on u.id = ur.user_id and ur.is_deleted = 0
+    inner join sys_role r on ur.role_id = r.id and r.is_deleted = 0
+    where u.user_name = #{username,jdbcType=VARCHAR}
+    and u.is_deleted = 0
+  </select>
+
+  <select id="findRolesByResourceId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select r.*
+    from sys_role r
+    inner join role_resource rr on r.id = rr.role_id and rr.is_deleted = 0
+    where resource_id = #{resourceId,jdbcType=BIGINT}
+    and r.is_deleted = 0
+  </select>
+</mapper>

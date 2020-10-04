@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.latiny.mapper.SysUserDomainMapper">
+  <resultMap id="BaseResultMap" type="cn.latiny.domain.SysUserDomain">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="enabled" jdbcType="INTEGER" property="enabled" />
+    <result column="account_non_expired" jdbcType="INTEGER" property="accountNonExpired" />
+    <result column="account_non_locked" jdbcType="INTEGER" property="accountNonLocked" />
+    <result column="credentials_non_expired" jdbcType="INTEGER" property="credentialsNonExpired" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_name, password, real_name, phone, enabled, account_non_expired, account_non_locked,
+    credentials_non_expired, create_time, update_time, is_deleted
+  </sql>
+
+  <select id="findUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from  sys_user
+    where user_name = #{username, jdbcType=VARCHAR}
+    and is_deleted = 0
+  </select>
+</mapper>
